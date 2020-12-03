@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:travel_flutter/blocs/application_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'blocs/bloc_provider.dart';
+import 'page/main/mainHomePage.dart';
 import 'utils/locale_util.dart';
 import 'utils/translations.dart';
 
 void main() {
-  runApp(BlocProvider(child: MyApp(),bloc: ApplicationBloc()));
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-    @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return MyAppState();
-  }
-}
-class MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -50,54 +44,6 @@ class MyAppState extends State<MyApp>{
 //        '/loginPage':(BuildContext context) => new LoginPage(),
 //        '/mainPage':(BuildContext context) => new MainPage(),
       },
-    );
-  }
-}
-
-
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: new Text(Translations.of(context).text("about_page_slogan")),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              Translations.of(context).text("about_page_slogan"),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
