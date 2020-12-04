@@ -10,7 +10,7 @@ class MyHomePage extends StatelessWidget  {
   @override
   Widget build(BuildContext context) {
     ///创建BlocProvider的，表明该Page，我们是用MainHomeBloc，MainHomeBloc是属于该页面的Bloc了
-   return BlocProvider(child: _MyHomePageWidget(), create:  (BuildContext context) => MainHomeBloc());
+   return BlocProvider(child: _MyHomePageWidget(), create:  (BuildContext context) => MainHomeBloc()..add(MainInitEvent()));
   }
 }
 

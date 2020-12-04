@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_flutter/blocs/application_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'blocs/bloc_provider.dart';
 import 'page/main/mainHomePage.dart';
 import 'utils/locale_util.dart';
 import 'utils/translations.dart';
