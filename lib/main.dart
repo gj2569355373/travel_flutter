@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:travel_flutter/blocs/application_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'page/main/mainHomePage.dart';
+import 'page/splash/SplashPage.dart';
 import 'utils/locale_util.dart';
 import 'utils/translations.dart';
-
+import 'r.dart';
 void main() {
   runApp(MyApp());
 }
@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
     Color _themeColor = Colors.deepOrange;
 //    final JPush jPush = new JPush();
     String registerId;
-    ApplicationBloc bloc;
     return MaterialApp(
       theme: ThemeData.light().copyWith(
           primaryColor: _themeColor,
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
           toggleableActiveColor: _themeColor,//部分按钮颜色，如Radio
           appBarTheme: AppBarTheme(textTheme: TextTheme(title: TextStyle(fontSize: 18.0,)))//标题样式
       ),
-      home: MyHomePage(),
+      home: SplashPage(),
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
