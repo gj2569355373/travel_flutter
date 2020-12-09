@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_flutter/page/splash/splash_cubit.dart';
 import 'package:travel_flutter/res/colors.dart';
-import 'package:travel_flutter/utils/translations.dart';
+import 'package:travel_flutter/utils/locale/translations.dart';
+import 'package:travel_flutter/view/indicatorView.dart';
 
 import '../../r.dart';
 
@@ -26,7 +27,7 @@ class SplashPage extends StatelessWidget {
 
   Widget _splashWidget(BuildContext context, SplashState state) {
     return Material(
-      child: new Stack(children: <Widget>[_getBody(context, state)]),
+      child: new Stack(children: <Widget>[_getBody(context, state),IndicatorView(state.httpShow)]),
     );
   }
 

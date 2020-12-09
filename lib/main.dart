@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'page/main/mainHomePage.dart';
 import 'page/splash/SplashPage.dart';
-import 'utils/locale_util.dart';
-import 'utils/translations.dart';
+import 'utils/locale/locale_util.dart';
+import 'utils/locale/translations.dart';
 import 'r.dart';
 void main() {
   runApp(MyApp());

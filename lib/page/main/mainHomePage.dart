@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_flutter/page/main/main_home_bloc.dart';
 
 
-import '../../utils/translations.dart';
+import '../../utils/locale/translations.dart';
 
 class MyHomePage extends StatelessWidget  {
   @override

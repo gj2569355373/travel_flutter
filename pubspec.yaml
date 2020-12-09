@@ -38,9 +38,18 @@ dependencies:
   flukit: ^1.0.2
   # https://github.com/renefloor/flutter_cached_network_image 网络加载图片库
   cached_network_image: ^2.4.1
+  #  加载指示器
+  flutter_spinkit: ^4.1.2
+  dio: ^3.0.10
+  # fromJson自动生成
+  json_annotation: ^3.0.0
   flutter_localizations:
     sdk: flutter
 dev_dependencies:
+  # fromJson自动生成
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
+  # fromJson自动生成
   flutter_test:
     sdk: flutter
 
