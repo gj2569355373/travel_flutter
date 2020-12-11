@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:travel_flutter/page/application/application_cubit.dart';
 import 'page/splash/SplashPage.dart';
 import 'utils/locale/locale_util.dart';
 import 'utils/locale/translations.dart';
-import 'r.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(BlocProvider(
+      create: (BuildContext context) => ApplicationCubit()..init(),
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    Color _themeColor = Colors.deepOrange;
-//    final JPush jPush = new JPush();
-    String registerId;
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(
-          primaryColor: _themeColor,
-          accentColor: _themeColor,
-          buttonColor: _themeColor,
-          indicatorColor: Colors.white,
-          backgroundColor: Colors.grey[50],
-          toggleableActiveColor: _themeColor,//部分按钮颜色，如Radio
-          appBarTheme: AppBarTheme(textTheme: TextTheme(title: TextStyle(fontSize: 18.0,)))//标题样式
-      ),
-      home: SplashPage(),
-      localizationsDelegates: [
-        const TranslationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: localeUtil.supportedLocales(),
-      routes:
-      <String,WidgetBuilder>{
-//        '/onePage':(BuildContext context) => new OnePage('简单布局'),
-//        '/twoPage':(BuildContext context) => new TwoPage('list列表布局'),
-//        '/threePage':(BuildContext context) => new ThreePage(),
-//        '/loginPage':(BuildContext context) => new LoginPage(),
-//        '/mainPage':(BuildContext context) => new MainPage(),
-      },
-    );
+    return BlocBuilder<ApplicationCubit, ApplicationState>(builder: (context, state) {
+      return MaterialApp(
+        theme: ThemeData.light().copyWith(
+            primaryColor: state.themeColor,
+            accentColor: state.themeColor,
+            buttonColor: state.themeColor,
+            indicatorColor: Colors.white,
+            backgroundColor: Colors.grey[50],
+            toggleableActiveColor: state.themeColor,
+            //部分按钮颜色，如Radio
+            appBarTheme: AppBarTheme(
+                textTheme: TextTheme(
+                    title: TextStyle(
+              fontSize: 18.0,
+            ))) //标题样式
+            ),
+        home: SplashPage(),
+        localizationsDelegates: [
+          const TranslationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: localeUtil.supportedLocales(),
+        routes: <String, WidgetBuilder>{},
+      );
+    });
   }
 }
