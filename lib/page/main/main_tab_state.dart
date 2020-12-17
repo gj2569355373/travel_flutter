@@ -1,19 +1,21 @@
-part of 'main_home_bloc.dart';
+part of 'main_tab_bloc.dart';
 
-
-class MainHomeState {
-  int selectedIndex;
-  bool isExtended;
+@immutable
+abstract class MainState {
+  final List<String> allPages = <String>[
+    Constant.main_home,
+//    Constant.main_extend,
+    Constant.main_my,
+  ];
+}
+class MainTabState extends MainState {
   ///初始化方法,基础变量也需要赋初值,不然会报空异常
-  MainHomeState({this.selectedIndex=0, this.isExtended=false});
-
+  MainTabState();
 
   ///clone方法,此方法实现参考fish_redux的clone方法
   ///也是对官方Flutter Login Tutorial这个demo中copyWith方法的一个优化
   ///Flutter Login Tutorial（https://bloclibrary.dev/#/flutterlogintutorial）
-  MainHomeState clone() {
-    return MainHomeState()
-      ..selectedIndex = selectedIndex
-      ..isExtended = isExtended;
+  MainTabState clone() {
+    return MainTabState();
   }
 }

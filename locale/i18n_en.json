@@ -1,5 +1,7 @@
 {
-  "about_page_slogan":"Health starts here",
+  "about_page_slogan": "Health starts here",
   "experience": "Experience it now",
-  "skip": "skip"
+  "skip": "skip",
+  "main_home": "home",
+  "main_my": "my"
 }

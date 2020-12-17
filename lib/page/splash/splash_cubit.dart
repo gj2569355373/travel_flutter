@@ -8,7 +8,7 @@ import 'package:travel_flutter/http/externalRequest.dart';
 import 'package:travel_flutter/models/SharedPreferencesKey.dart';
 import 'package:travel_flutter/page/base/blocBase.dart';
 import 'package:travel_flutter/page/base/stateBase.dart';
-import 'package:travel_flutter/page/main/mainHomePage.dart';
+import 'package:travel_flutter/page/main/mainTabPage.dart';
 import 'package:travel_flutter/utils/http/dio_util.dart';
 import 'package:travel_flutter/utils/navigator/navigator_util.dart';
 import '../../r.dart';
@@ -46,7 +46,8 @@ class SplashCubit extends Cubit<SplashState> with BlocBase{
       request.login(map).then((value) {
         emit(state.clone()..httpShow=false);
         if(value)
-          NavigatorUtil.pushPage(context,MyHomePage());
+          Navigator.of(context).pushReplacementNamed('/mainPage');
+//          NavigatorUtil.pushPage(context,MyHomePage());
         print("----------------Http Log----------------" +value.toString());
       },onError: (Object err, StackTrace stackTrace){
         emit(state.clone()..httpShow=false);
@@ -64,5 +65,15 @@ class SplashCubit extends Cubit<SplashState> with BlocBase{
       }
     });
     state._timerUtil.startCountDown();
+  }
+
+  @override
+  void onLoading() {
+    // TODO: implement onLoading
+  }
+
+  @override
+  void onRefresh() {
+    // TODO: implement onRefresh
   }
 }

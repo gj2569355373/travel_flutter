@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:sp_util/sp_util.dart';
 
 import 'api.dart';
+import 'http_model.dart';
 import 'requestAll.dart';
 
 /*
@@ -53,7 +54,20 @@ class ExternalRequest {
       return new Future.error(baseResp["error_description"]);
   }
 
-
+  Future<List<BannerModel>> getBanner() async {
+    BaseRespTravel<List> baseResp = await RequestAll()
+        .requestTravel<List>(Method.get, WanAndroid.banner);
+    List<BannerModel> bannerList;
+//    if (baseResp.code != 0) {
+//      return new Future.error(baseResp.msg);
+//    }
+    if (baseResp.data != null && baseResp.data.length>0) {
+      bannerList = baseResp.data.map((value) {
+        return BannerModel.fromJson(value);
+      }).toList();
+    }
+    return bannerList;
+  }
 
 
   static Future<bool> setToken(TokenModel tokenModels) {

@@ -4,7 +4,13 @@
  * description: 
  * */
 import 'package:travel_flutter/http/externalRequest.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BlocBase {
   final ExternalRequest request = new ExternalRequest();
+  void showToast(String msg){
+
+  }
+  void onRefresh();
+  void onLoading();
 }

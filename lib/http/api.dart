@@ -12,3 +12,6 @@ class VCodeApi {
   static const String LoginT = "http://39.101.189.112//api/uaa/oauth/token";
   static const String Login = "http://vcode.veno2.cn/index.php?mod=site&name=api&do=users&op=getHomePage";
 }
+class WanAndroid{
+  static const String banner="https://www.wanandroid.com/banner/json";
+}

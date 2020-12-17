@@ -1,6 +1,8 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:travel_flutter/page/main/mainHomePage.dart';
+import 'package:travel_flutter/models/constant.dart';
+import 'package:travel_flutter/page/main/home/home_page.dart';
+import 'package:travel_flutter/page/main/my/my_page.dart';
 import 'package:travel_flutter/page/web/web_scaffold.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -59,11 +61,13 @@ class NavigatorUtil {
   }
 }
 
-//跟进网络参数打开本地页面可以使用
+//根据网络参数打开本地页面可以使用
 Widget getPage(String name){
   switch(name){
-    case 'MyHomePage'://主页
-      return MyHomePage();
+    case Constant.main_home://主页
+      return HomePage();
+    case Constant.main_my://我的
+      return MyPage();
 //    case 'twoPage':
 //      return TwoPage('简单布局');
 //    case 'threePage':
@@ -73,6 +77,6 @@ Widget getPage(String name){
 //    case 'newOrder':
 //      return NewOrderPage();
     default:
-      return null;
+      return Container(child: Text("getPage参数异常，请联系开发人员"),);
   }
 }

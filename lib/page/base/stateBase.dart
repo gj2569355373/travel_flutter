@@ -4,5 +4,5 @@
  * description: 
  * */
 abstract class StateBase {
-  bool httpShow = false;
+  bool httpShow =false;
 }
