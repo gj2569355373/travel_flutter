@@ -8,10 +8,11 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_flutter/page/base/stateBase.dart';
 import 'package:travel_flutter/page/splash/splash_cubit.dart';
 import 'package:travel_flutter/res/colors.dart';
 import 'package:travel_flutter/utils/locale/translations.dart';
-import 'package:travel_flutter/view/indicatorView.dart';
+import 'package:travel_flutter/view/indicator_view.dart';
 
 import '../../r.dart';
 
@@ -19,65 +20,68 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+//    print("SplashPage  build");
     return BlocProvider(
-      child: BlocBuilder<SplashCubit, SplashState>(builder: _splashWidget),
+      child: Material(
+        child: new Stack(children: <Widget>[
+          BlocBuilder<SplashCubit, StateBase>(builder: _getBody),
+          IndicatorView<SplashCubit>()
+        ]),
+      ), //BlocBuilder<SplashCubit, StateBase>(builder: _splashWidget),
       create: (BuildContext context) => SplashCubit()..init(context),
     );
   }
 
-  Widget _splashWidget(BuildContext context, SplashState state) {
-    return Material(
-      child: new Stack(children: <Widget>[_getBody(context, state),IndicatorView(state.httpShow)]),
-    );
-  }
-
-  Widget _getBody(BuildContext context, SplashState state) {
-    if (state.start) {
-      //判断显示引导页还是启动页
-      initBannerData(context, state);
-      return new Swiper(
-          autoStart: false,
-          circular: false,
-          indicator: CircleSwiperIndicator(
-            radius: 4.0,
-            padding: EdgeInsets.only(bottom: 30.0),
-            itemColor: Colors.black26,
-          ),
-          children: state.bannerList);
-    } else {
-      return new Stack(children: <Widget>[
-        new Offstage(
-            offstage: ObjectUtil.isNotEmpty(state.imageUrl),
-            child: _buildSplashBg()),
-        new Offstage(
-            offstage: ObjectUtil.isEmpty(state.imageUrl),
-            child: _networkImageWidget(state)),
-        new Offstage(
-          offstage: ObjectUtil.isEmpty(state.imageUrl),
-          child: new Container(
-            alignment: Alignment.bottomRight,
-            margin: EdgeInsets.all(20.0),
-            child: InkWell(
-              onTap: () {
-                BlocProvider.of<SplashCubit>(context).next(context);
-              },
-              child: new Container(
-                  padding: EdgeInsets.all(12.0),
-                  child: new Text(
-                    Translations.of(context).text("skip") +
-                        state.count.toString(),
-                    style: new TextStyle(fontSize: 14.0, color: Colors.white),
-                  ),
-                  decoration: new BoxDecoration(
-                      color: Color(0x66000000),
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      border:
-                      new Border.all(width: 0.33, color: Colours.divider))),
+  Widget _getBody(BuildContext context, StateBase state) {
+    if (state is SplashState) {
+      if (state.start) {
+        //判断显示引导页还是启动页
+        initBannerData(context, state);
+        return new Swiper(
+            autoStart: false,
+            circular: false,
+            indicator: CircleSwiperIndicator(
+              radius: 4.0,
+              padding: EdgeInsets.only(bottom: 30.0),
+              itemColor: Colors.black26,
             ),
-          ),
-        )
-      ]);
+            children: state.bannerList);
+      } else {
+        return new Stack(children: <Widget>[
+          new Offstage(
+              offstage: ObjectUtil.isNotEmpty(state.imageUrl),
+              child: _buildSplashBg()),
+          new Offstage(
+              offstage: ObjectUtil.isEmpty(state.imageUrl),
+              child: _networkImageWidget(state)),
+          new Offstage(
+            offstage: ObjectUtil.isEmpty(state.imageUrl),
+            child: new Container(
+              alignment: Alignment.bottomRight,
+              margin: EdgeInsets.all(20.0),
+              child: InkWell(
+                onTap: () {
+                  BlocProvider.of<SplashCubit>(context).next(context);
+                },
+                child: new Container(
+                    padding: EdgeInsets.all(12.0),
+                    child: new Text(
+                      Translations.of(context).text("skip") +
+                          state.count.toString(),
+                      style: new TextStyle(fontSize: 14.0, color: Colors.white),
+                    ),
+                    decoration: new BoxDecoration(
+                        color: Color(0x66000000),
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        border: new Border.all(
+                            width: 0.33, color: Colours.divider))),
+              ),
+            ),
+          )
+        ]);
+      }
     }
+    else return Container(height: 0.0);
   }
 
   Widget _buildSplashBg() {
@@ -137,7 +141,8 @@ class SplashPage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 160.0),
                 child: new InkWell(
                   onTap: () {
-                    BlocProvider.of<SplashCubit>(context).next(context,one: true);
+                    BlocProvider.of<SplashCubit>(context)
+                        .next(context, one: true);
                   },
                   child: new CircleAvatar(
                     radius: 48.0,

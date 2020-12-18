@@ -18,7 +18,9 @@ class ApplicationCubit extends Cubit<ApplicationState> {
 
   //触发主题更新
   void onThemeChanged(String colorKey) {
-    if (themeColorMap[colorKey] != null)
+    if (themeColorMap[colorKey] != null) {
+      print("onThemeChanged  build");
       emit(state.clone(themeColors: themeColorMap[colorKey]));
+    }
   }
 }

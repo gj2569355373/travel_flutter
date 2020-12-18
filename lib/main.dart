@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+//    print("MyApp  build");
     return BlocBuilder<ApplicationCubit, ApplicationState>(
         builder: (context, state) {
+//          print("MyApp  BlocBuilder build");
       return MaterialApp(
         theme: ThemeData.light().copyWith(
             primaryColor: state.themeColor,

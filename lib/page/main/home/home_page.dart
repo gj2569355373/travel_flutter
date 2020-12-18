@@ -6,10 +6,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:travel_flutter/http/http_model.dart';
 import 'package:travel_flutter/models/constant.dart';
+import 'package:travel_flutter/models/listRowBin.dart';
+import 'package:travel_flutter/models/panelBin.dart';
+import 'package:travel_flutter/models/typeItem.dart';
 import 'package:travel_flutter/page/base/eventBase.dart';
+import 'package:travel_flutter/page/base/stateBase.dart';
+import 'package:travel_flutter/res/styles.dart';
 import 'package:travel_flutter/utils/locale/translations.dart';
 import 'package:travel_flutter/utils/navigator/navigator_util.dart';
-import 'package:travel_flutter/view/indicatorView.dart';
+import 'package:travel_flutter/view/indicator_view.dart';
+import 'package:travel_flutter/view/swiper_style_utils.dart';
 import 'home_bloc.dart';
 
 /*
@@ -29,11 +35,17 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    LogUtil.e("HomePageState build.......");
     return Scaffold(
         appBar: AppBar(
           title: Text(Translations.of(context).text(Constant.main_home)),
         ),
         body: RefresherBloc());
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -74,31 +86,84 @@ class RefresherState extends State<RefresherWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    LogUtil.e("RefresherState build.......");
     return Stack(children: <Widget>[
       SmartRefresher(
           controller: refreshController,
           enablePullDown: true,
           enablePullUp: false,
           onRefresh: () {
-            _homeBloc.add(RefreshEvent());
+            _homeBloc.add(RefreshEvent(refreshController));
           },
-          onLoading: () => _homeBloc.add(LoadingEvent()),
+          onLoading: () => _homeBloc.add(LoadingEvent(refreshController)),
           header: WaterDropHeader(),
           child: ListView(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(),
               children: <Widget>[
-                BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-                  if (state is HomeInitial)
+                BlocBuilder<HomeBloc, StateBase>(buildWhen: (previousState, currentState){
+                    return (currentState is HomeInitial);
+                },builder: (context, state) {
+//                  LogUtil.e("BlocBuilder listBanner build.......${state.runtimeType}");
+                  if (state is HomeInitial) {
                     return _buildBanner(context, state.listBanner);
+                  }
                   else
-                    return Container();
-                })
+                    return  Container(height: 0.0,);
+                }),
+                BlocBuilder<HomeBloc, StateBase>(buildWhen: (previousState, currentState){
+                  return (currentState is HomeTypeItem);
+                },builder: (context, state){
+                  if (state is HomeTypeItem)
+                    return domainStream(context,state.list);
+                  else
+                    return  Container(height: 0.0,);
+                }),
+                BlocBuilder<HomeBloc, StateBase>(buildWhen: (previousState, currentState){
+                  return (currentState is HomeLabelPanel);
+                },builder: (context, state){
+                  if (state is HomeLabelPanel)
+                    return getLabelPanel(state);
+                  else
+                    return  Container(height: 0.0,);
+                }),
+                BlocBuilder<HomeBloc, StateBase>(buildWhen: (previousState, currentState){
+                  return (currentState is HomePanel);
+                },builder: (context, state){
+                  if (state is HomePanel)
+                    return homePanel(context,state.list);
+                  else
+                    return  Container(height: 0.0,);
+                }),
+                BlocBuilder<HomeBloc, StateBase>(buildWhen: (previousState, currentState){
+                  return (currentState is HomeRowBin);
+                },builder: (context, state){
+                  if (state is HomeRowBin)
+                    return _buildHomeRow(state.list);
+                  else
+                    return  Container(height: 0.0,);
+                }),
               ])),
-      BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-        return IndicatorView(state.httpShow);
-      })
+      IndicatorView<HomeBloc>()
     ]);
+  }
+
+  Widget _buildHomeRow(List<ListRowBin> listData){
+    return Column(
+      children: listData.map((value) {
+        return ListTile(
+          title: Text(
+            value.text,
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          trailing: new Icon(value.icon, color: Colors.red),
+          onTap: () {
+            //点击监听
+            // Add 9 lines from here...
+          },
+        );
+      }).toList(),
+    );
   }
 
   Widget _buildBanner(context, List<BannerModel> snapshot) {
@@ -129,33 +194,159 @@ class RefresherState extends State<RefresherWidget> {
           }).toList(),
         ));
   }
-}
 
-class ProgressView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Center(
-      child: new SizedBox(
-        width: 24.0,
-        height: 24.0,
-        child: new CircularProgressIndicator(
-          strokeWidth: 2.0,
-        ),
+  Widget domainStream(context, List<TypeItem> listData) {
+    return Card(
+      margin: EdgeInsets.all(10),
+      elevation: 2,
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 5.0,
+            crossAxisSpacing: 5.0,
+          ),
+          //纵轴(水平)方向间距
+          itemCount: listData.length > 8 ? 8 : listData.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          //禁用滑动事件
+          itemBuilder: (context, i) {
+            if (listData.length > 8 && i == 7) {
+              return InkWell(
+                onTap: ()=>_homeBloc.add(new HomeTypeItemMoreEvent()),
+                child: Icon(
+                  Icons.more_horiz,
+                  size: 30,
+                  color: Theme.of(context).accentColor,
+                ),
+              );
+            }
+            return InkWell(
+                onTap: () {
+                  _homeBloc.add(new HomeTypeItemEvent(context,listData[i]));
+                },
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      getImage(listData[i]),
+                      Container(
+                        height: 10,
+                      ),
+                      Text(listData[i].title,
+                          style: TextStyles.typeListName)
+                    ],
+                  ),
+                ));
+          }),
+    );
+  }
+
+  Widget getLabelPanel(HomeLabelPanel homeLabelPanel) {
+    return Container(
+      color: Colors.grey[200],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: Text('订单看板', style: TextStyle(fontSize: 15)),
+            margin: EdgeInsets.only(left: 10),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(''),
+          ),
+          Container(
+            height: 40,
+            alignment: Alignment.center,
+            child: Text('周期', style: TextStyle(fontSize: 14)),
+            margin: EdgeInsets.only(right: 10),
+          ),
+          getDropdownButton(homeLabelPanel.dropDownValue, <String>['天', '周', '月'], (String v){
+            if(homeLabelPanel.dropDownValue==v)
+              return;
+            _homeBloc.add(new HomePanelEvent(v));
+          })
+        ],
       ),
     );
   }
-}
 
-class NumberSwiperIndicator extends SwiperIndicator {
-  @override
-  Widget build(BuildContext context, int index, int itemCount) {
+  Widget homePanel(context, List<PanelBin> listData) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.black45, borderRadius: BorderRadius.circular(20.0)),
-      margin: EdgeInsets.only(top: 10.0, right: 5.0),
-      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-      child: Text("${++index}/$itemCount",
-          style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+      color: Theme.of(context).accentColor,
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 1.0,
+            crossAxisSpacing: 1.0,
+          ),
+          //纵轴(水平)方向间距
+          itemCount: 8,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          //禁用滑动事件
+          itemBuilder: (context, i) {
+            return Material(
+                color: Colors.white,
+                child: InkWell(
+                    onTap: () =>_homeBloc.add(new HomePanelBinEvent(context,listData[i])),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(listData[i].count,
+                              style: TextStyles.typeListTitle),
+                          Container(
+                            height: 10,
+                          ),
+                          Text(listData[i].title,
+                              style: TextStyles.typeListName)
+                        ],
+                      ),
+                    )));
+          }),
+    );
+  }
+
+
+  Widget getDropdownButton(String v, List<String> list, onTap(String value)) {
+    return DropdownButton<String>(
+        value: v,
+        style: TextStyle(color: Theme.of(context).accentColor),
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+              child: Container(
+                width: 50,
+                alignment: Alignment.center,
+                child: Text(
+                  value,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 13),
+                ),
+              ),
+              value: value);
+        }).toList(),
+        onChanged: (String value) {
+          onTap(value);
+        });
+  }
+
+  Widget getImage(TypeItem data) {
+    return ClipRRect(
+      child: new CachedNetworkImage(
+        fit: BoxFit.cover,
+        imageUrl: data.image,
+        placeholder: (context, url) => new ProgressView(),
+        height: 40,
+        width: 40,
+        errorWidget: (context, url, error) => new Icon(Icons.error),
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
     );
   }
 }
+
+
