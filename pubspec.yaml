@@ -51,6 +51,8 @@ dependencies:
   url_launcher: ^5.7.10
   # fromJson自动生成
   json_annotation: ^3.0.0
+  # svg
+  flutter_svg: ^0.19.1
   flutter_localizations:
     sdk: flutter
 dev_dependencies:
@@ -82,9 +84,15 @@ flutter:
     - assets/img/3.0x/start3.jpg
      # assets-generator-begin
       # assets/img/*
+    - assets/img/main_top.png
+    - assets/img/signup_top.png
+    - assets/img/login_bottom.png
+    - assets/img/login.svg
     - assets/img/start2.jpg
     - assets/img/start3.jpg
     - assets/img/start1.jpg
+    - assets/img/main_bottom.png
+    - assets/img/signup.svg
     - assets/img/splash_bg.png
       # assets-generator-end
 

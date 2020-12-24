@@ -1,5 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:travel_flutter/models/constant.dart';
 import 'package:travel_flutter/page/main/home/home_page.dart';
 import 'package:travel_flutter/page/main/my/my_page.dart';
@@ -17,6 +18,9 @@ class NavigatorUtil {
       return Navigator.of(context).pushReplacementNamed(pagePath);
     return Future.error("");
   }
+//  static Future pushPageFadeReplacement(BuildContext context, Widget page){
+//      return Navigator.of(context).pushReplacement(FadeRoute(page: page));
+//  }
 
   static void pushWeb(BuildContext context,
       {String title, String titleId, String url, bool isHome: false}) {
@@ -79,4 +83,26 @@ Widget getPage(String name){
     default:
       return Container(child: Text("getPage参数异常，请联系开发人员"),);
   }
+}
+class FadeRoute extends PageRouteBuilder {
+  final Widget page;
+  FadeRoute({this.page})
+      : super(
+    pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        ) =>
+    page,
+    transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+        ) =>
+        FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+  );
 }

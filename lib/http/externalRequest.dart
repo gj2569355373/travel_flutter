@@ -45,6 +45,7 @@ class TokenModel {
 
 class ExternalRequest {
   static TokenModel _tokenModel;
+
   //登录API
   Future<bool> login(map) async {
     Map<String, dynamic> baseResp = await RequestAll()
@@ -57,13 +58,13 @@ class ExternalRequest {
   }
 
   Future<List<BannerModel>> getBanner() async {
-    BaseRespTravel<List> baseResp = await RequestAll()
-        .requestTravel<List>(Method.get, WanAndroid.banner);
+    BaseRespTravel<List> baseResp =
+        await RequestAll().requestTravel<List>(Method.get, WanAndroid.banner);
     List<BannerModel> bannerList;
 //    if (baseResp.code != 0) {
 //      return new Future.error(baseResp.msg);
 //    }
-    if (baseResp.data != null && baseResp.data.length>0) {
+    if (baseResp.data != null && baseResp.data.length > 0) {
       bannerList = baseResp.data.map((value) {
 //        return new Future.error("错误");
         return BannerModel.fromJson(value);
@@ -73,14 +74,78 @@ class ExternalRequest {
   }
 
   Future<List<TypeItem>> getCustomDomain() async {
-    BaseRespTravel<List> baseResp = await RequestAll()
-        .requestTravel<List>(Method.get, WanAndroid.banner);
+    BaseRespTravel<List> baseResp =
+        await RequestAll().requestTravel<List>(Method.get, WanAndroid.banner);
     List<TypeItem> ls;
 //    if (baseResp.code != 0) {
 //      return new Future.error(baseResp.msg);
 //    }
-    if (baseResp.data != null && baseResp.data.length>0) {
-      var json=[{'title':'百度','image':'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559110934104&di=51ac29da896d9d6d942eac302e71258d&imgtype=0&src=http%3A%2F%2Fs7.sinaimg.cn%2Fbmiddle%2F494028914443aa70b4bf6','type':2,'urlPage':'http://www.baidu.com'},{'title':'OnePage','image':'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=354865630,1374999026&fm=15&gp=0.jpg','type':1,'urlPage':'onePage'},{'title':'twoPage','image':'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3196416985,685332592&fm=15&gp=0.jpg','type':1,'urlPage':'twoPage'},{'title':'threePage','image':'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1124029688,2135689418&fm=15&gp=0.jpg','type':1,'urlPage':'threePage'},{'title':'fourPage','image':'http://d.lanrentuku.com/down/png/1712/22xiaodongwu/22xiaodongwu_12.png','type':1,'urlPage':'fourPage'},{'title':'查看供应商','image':'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=175452447,2068155536&fm=15&gp=0.jpg','type':2,'urlPage':'http://www.baidu.com'},{'title':'threePage','image':'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1124029688,2135689418&fm=15&gp=0.jpg','type':1,'urlPage':'threePage'},{'title':'fourPage','image':'http://d.lanrentuku.com/down/png/1712/22xiaodongwu/22xiaodongwu_12.png','type':1,'urlPage':'fourPage'},{'title':'查看供应商','image':'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=175452447,2068155536&fm=15&gp=0.jpg','type':2,'urlPage':'http://www.baidu.com'}];
+    if (baseResp.data != null && baseResp.data.length > 0) {
+      var json = [
+        {
+          'title': '百度',
+          'image':
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559110934104&di=51ac29da896d9d6d942eac302e71258d&imgtype=0&src=http%3A%2F%2Fs7.sinaimg.cn%2Fbmiddle%2F494028914443aa70b4bf6',
+          'type': 2,
+          'urlPage': 'http://www.baidu.com'
+        },
+        {
+          'title': 'OnePage',
+          'image':
+              'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2601900707,917050054&fm=26&gp=0.jpg',
+          'type': 1,
+          'urlPage': 'onePage'
+        },
+        {
+          'title': 'twoPage',
+          'image':
+              'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2601900707,917050054&fm=26&gp=0.jpg',
+          'type': 1,
+          'urlPage': 'twoPage'
+        },
+        {
+          'title': 'threePage',
+          'image':
+              'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1124029688,2135689418&fm=15&gp=0.jpg',
+          'type': 1,
+          'urlPage': 'threePage'
+        },
+        {
+          'title': 'fourPage',
+          'image':
+              'http://d.lanrentuku.com/down/png/1712/22xiaodongwu/22xiaodongwu_12.png',
+          'type': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': '查看供应商',
+          'image':
+              'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2272478076,2858112941&fm=26&gp=0.jpg',
+          'type': 2,
+          'urlPage': 'http://www.baidu.com'
+        },
+        {
+          'title': 'threePage',
+          'image':
+              'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1124029688,2135689418&fm=15&gp=0.jpg',
+          'type': 1,
+          'urlPage': 'threePage'
+        },
+        {
+          'title': 'fourPage',
+          'image':
+              'http://d.lanrentuku.com/down/png/1712/22xiaodongwu/22xiaodongwu_12.png',
+          'type': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': '查看供应商',
+          'image':
+              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=175452447,2068155536&fm=15&gp=0.jpg',
+          'type': 2,
+          'urlPage': 'http://www.baidu.com'
+        }
+      ];
       ls = json.map((value) {
         return TypeItem.fromJson(value);
       }).toList();
@@ -89,11 +154,50 @@ class ExternalRequest {
   }
 
   Future<List<PanelBin>> getHomePanel() async {
-    BaseRespTravel<List> baseResp = await RequestAll()
-        .requestTravel<List>(Method.get, WanAndroid.banner);
+    BaseRespTravel<List> baseResp =
+        await RequestAll().requestTravel<List>(Method.get, WanAndroid.banner);
     List<PanelBin> ls;
-    if (baseResp.data != null && baseResp.data.length>0) {
-      var json=[{'title':'待确认','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'待发货','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'},{'title':'fourPage','count':'35','styleType':1,'urlPage':'fourPage'}];
+    if (baseResp.data != null && baseResp.data.length > 0) {
+      var json = [
+        {'title': '待确认', 'count': '35', 'styleType': 1, 'urlPage': 'fourPage'},
+        {'title': '待发货', 'count': '35', 'styleType': 1, 'urlPage': 'fourPage'},
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        },
+        {
+          'title': 'fourPage',
+          'count': '35',
+          'styleType': 1,
+          'urlPage': 'fourPage'
+        }
+      ];
       ls = json.map((value) {
         return PanelBin.fromJson(value);
       }).toList();

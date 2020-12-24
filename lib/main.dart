@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:travel_flutter/page/application/application_cubit.dart';
+import 'page/login/LoginPage.dart';
 import 'page/main/mainTabPage.dart';
 import 'page/splash/SplashPage.dart';
 import 'travel_observer.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    print("MyApp  build");
-    return BlocBuilder<ApplicationCubit, ApplicationState>(
+    return BlocBuilder<ApplicationCubit, ApplicationInitial>(
         builder: (context, state) {
 //          print("MyApp  BlocBuilder build");
       return MaterialApp(
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             ),
         home: SplashPage(),
         localizationsDelegates: [
+          state.localeOverrideDelegate,
           const TranslationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: localeUtil.supportedLocales(),
         routes: <String, WidgetBuilder>{
           '/mainPage': (BuildContext context) => new MainTabPage(),
+          '/LoginPage': (BuildContext context) => new LoginPage(),
 //          '/loginPage': (BuildContext context) => new LoginPage()
         },
       );

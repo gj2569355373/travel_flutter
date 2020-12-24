@@ -30,7 +30,8 @@ class Colours {
   static const Color loginLabel = Color(0xff626262); //<!--204-->
   static const Color loginValue = Color(0xff626262); //<!--204-->
   static const Color loginButton = Color(0xff626262); //<!--204-->
-
+//  static const kPrimaryColor = Color(0xFF6F35A5);
+//  static const kPrimaryLightColor = Color(0xFFF1E6FF);
 }
 
 Map<String, Color> circleAvatarMap = {

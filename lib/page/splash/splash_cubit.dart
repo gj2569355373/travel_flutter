@@ -8,6 +8,7 @@ import 'package:travel_flutter/http/externalRequest.dart';
 import 'package:travel_flutter/models/SharedPreferencesKey.dart';
 import 'package:travel_flutter/page/base/blocBase.dart';
 import 'package:travel_flutter/page/base/stateBase.dart';
+import 'package:travel_flutter/page/login/LoginPage.dart';
 import 'package:travel_flutter/page/main/mainTabPage.dart';
 import 'package:travel_flutter/utils/http/dio_util.dart';
 import 'package:travel_flutter/utils/navigator/navigator_util.dart';
@@ -44,15 +45,7 @@ class SplashCubit extends Cubit<StateBase> with BlocBase{
         SpUtil.putInt(SharedPreferencesKey.key_start, 1);
       if(_timerUtil!=null)
         _timerUtil.cancel();
-      emit(HttpState(true));
-      var map={"grant_type": "password","username":'13420516645',"password":'516645',"scope":"ui","client_id":"browser","client_secret":"server"};
-      request.login(map).then((value) {
-        emit(HttpState(false));
-        if(value)
-          Navigator.of(context).pushReplacementNamed('/mainPage');
-      },onError: (Object err, StackTrace stackTrace){
-        emit(HttpState(false));
-      });
+      Navigator.of(context).pushReplacementNamed('/LoginPage');
   }
   void _startTimerUtil(BuildContext context){
     if(_timerUtil!=null)

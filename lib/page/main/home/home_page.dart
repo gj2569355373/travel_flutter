@@ -32,15 +32,20 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     // TODO: implement build
     LogUtil.e("HomePageState build.......");
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(Translations.of(context).text(Constant.main_home)),
-        ),
-        body: RefresherBloc());
+    return
+      BlocProvider(
+          child: Scaffold(
+              appBar: AppBar(
+                title: Text(Translations.of(context).text(Constant.main_home)),
+              ),
+              body: RefresherWidget()),
+          create: (BuildContext context) => HomeBloc());
   }
   @override
   void initState() {
@@ -51,16 +56,6 @@ class HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-}
-
-class RefresherBloc extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return BlocProvider(
-        child: RefresherWidget(),
-        create: (BuildContext context) => HomeBloc()..add(HomeInitEvent()));
-  }
 }
 
 class RefresherWidget extends StatefulWidget {
@@ -81,6 +76,7 @@ class RefresherState extends State<RefresherWidget> {
     // TODO: implement initState
     super.initState();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _homeBloc.add(HomeInitEvent());
   }
 
   @override
