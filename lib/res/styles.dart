@@ -61,6 +61,7 @@ class TextStyles {
     fontSize: Dimens.font_sp14,
     color: Colors.black87,
   );
+  static TextStyle hintStyle = TextStyle(fontSize: 14);
 }
 
 class Decorations {

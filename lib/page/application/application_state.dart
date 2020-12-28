@@ -1,7 +1,7 @@
 part of 'application_cubit.dart';
 
 // ignore: must_be_immutable
-class ApplicationInitial {
+class ApplicationInitial extends StateBase{
   Color themeColor;
   String registerId;
   SpecificLocalizationDelegate localeOverrideDelegate;

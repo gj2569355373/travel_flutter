@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_flutter/res/styles.dart';
 import 'text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
@@ -25,6 +26,7 @@ class RoundedInputField extends StatelessWidget {
             color: kPrimaryColor,
           ),
           hintText: hintText,
+          hintStyle: TextStyles.hintStyle,
           border: InputBorder.none,
         ),
       ),

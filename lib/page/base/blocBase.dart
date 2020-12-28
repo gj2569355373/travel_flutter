@@ -3,8 +3,10 @@
  * Created in 2020/12/9 5:18 下午
  * description: 
  * */
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_flutter/http/externalRequest.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:travel_flutter/page/base/stateBase.dart';
 
 abstract class BlocBase {
   final ExternalRequest request = new ExternalRequest();
@@ -13,4 +15,9 @@ abstract class BlocBase {
   }
   void onRefresh();
   void onLoading();
+}
+abstract class CountDownWith extends Cubit<StateBase>{
+  CountDownWith(StateBase state) : super(state);
+
+  void updateCountDown(int count);
 }

@@ -10,3 +10,8 @@ class HttpState extends StateBase{//扩展用于控制网络指示器开关的st
   final bool httpB;
   HttpState(this.httpB);
 }
+class CountDownState extends StateBase{//扩展用于控制验证码计时器
+  final int time;
+  CountDownState(this.time);
+}
+

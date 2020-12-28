@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_flutter/res/styles.dart';
 
 import 'text_field_container.dart';
 
@@ -22,6 +23,7 @@ class RoundedPasswordField extends StatelessWidget {
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: TextStyles.hintStyle,
           icon: Icon(
             Icons.lock,
             color: kPrimaryColor,

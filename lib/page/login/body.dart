@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
           children: <Widget>[
 //            SizedBox(height: size.height * 0.01),
             SvgPicture.asset(
-              R.assetsImgSignup,
+              R.assetsImgLogin,
               height: size.height * 0.35,
             ),
             RoundedInputField(
@@ -62,7 +62,7 @@ class Body extends StatelessWidget {
                           fontSize: 15),
                     ),
                   ),
-                  onPressed: () =>BlocProvider.of<LoginCubit>(context).forgetPassword(),
+                  onPressed: () =>BlocProvider.of<LoginCubit>(context).forgetPassword(context),
                 ),
                 FlatButton(
                   splashColor: Color(0x00ffffff),
@@ -78,26 +78,41 @@ class Body extends StatelessWidget {
                           fontSize: 15),
                     ),
                   ),
-                  onPressed: () =>BlocProvider.of<LoginCubit>(context).register(),
+                  onPressed: () =>BlocProvider.of<LoginCubit>(context).register(context),
                 )
               ],
             ),
             OrDivider( kPrimaryColor: Theme.of(context).accentColor),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SocalIcon(
-                  iconSrc: R.assetsImgSignup,
-                  press: () {},
+                InkWell(
+                  onTap: ()=>BlocProvider.of<LoginCubit>(context).wechat(context),
+                  child: Image.asset(
+                    R.assetsImgLoginWechat,
+                    fit: BoxFit.contain,
+                    width: size.height * 0.05,
+                    height: size.height * 0.05,
+                  ),
                 ),
-                SocalIcon(
-                  iconSrc: R.assetsImgSignup,
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: R.assetsImgSignup,
-                  press: () {},
-                ),
+//                Container(),
+                InkWell(
+                  onTap: ()=>BlocProvider.of<LoginCubit>(context).instagram(context),
+                  child: Image.asset(
+                    R.assetsImgLoginInstagram,
+                    fit: BoxFit.contain,
+                    width: size.height * 0.05,
+                    height: size.height * 0.05,
+                  ),
+                )
+//                SocalIcon(
+//                  iconSrc: R.assetsImgLoginWechat,
+//                  press: () {},
+//                ),
+//                SocalIcon(
+//                  iconSrc: R.assetsImgLoginInstagram,
+//                  press: () {},
+//                ),
               ],
             )
           ],

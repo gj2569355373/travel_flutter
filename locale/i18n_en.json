@@ -22,5 +22,6 @@
   "loginUserHint": "Enter mobile phone number",
   "loginUserText": "User name",
   "loginPassWordHint": "Input password",
-  "loginPassWordText": "Password"
+  "loginPassWordText": "Password",
+  "verificationCode": "Verification Code"
 }

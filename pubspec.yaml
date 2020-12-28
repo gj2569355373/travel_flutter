@@ -88,11 +88,13 @@ flutter:
     - assets/img/signup_top.png
     - assets/img/login_bottom.png
     - assets/img/login.svg
+    - assets/img/login_instagram.png
     - assets/img/start2.jpg
     - assets/img/start3.jpg
     - assets/img/start1.jpg
     - assets/img/main_bottom.png
     - assets/img/signup.svg
+    - assets/img/login_wechat.png
     - assets/img/splash_bg.png
       # assets-generator-end
 
