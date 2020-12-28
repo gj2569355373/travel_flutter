@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:dio/dio.dart';
@@ -19,15 +21,21 @@ class SplashCubit extends Cubit<StateBase> with BlocBase{
   TimerUtil _timerUtil;
   final int count=5;
   SplashState splashState;
+  Timer timer;
   SplashCubit() : super(SplashState());
   //跳转页面
   void skips(BuildContext context) => Navigator.of(context).pushReplacementNamed('/loginPage');
   void init(BuildContext context) async {//初始化处理判断是否进入启动页
     int i= SpUtil.getInt(SharedPreferencesKey.key_start,defValue: 0);
-    emit(SplashState()..start=i==0..imageUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607427706161&di=f8b1fe1c123ff2cb061accf7e4862ff4&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fmobile%2F2018-05-10%2F5af40f5bbac79.jpg");
+    emit(SplashState()..start=i==0);
+    _http();
     if(i!=0) {
-      _http();
-      _startTimerUtil(context);
+      timer= new Timer(new Duration(seconds: 2), () {
+        emit(SplashState().clone()..imageUrl="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607427706161&di=f8b1fe1c123ff2cb061accf7e4862ff4&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fmobile%2F2018-05-10%2F5af40f5bbac79.jpg");
+        _startTimerUtil(context);
+        timer.cancel();
+        timer=null;
+      });
     }
   }
   void _http() async {
@@ -52,11 +60,12 @@ class SplashCubit extends Cubit<StateBase> with BlocBase{
       return;
     _timerUtil=new TimerUtil(mTotalTime: splashState.count * 1000);
     _timerUtil.setOnTimerTickCallback((int tick) {
-      double _tick = tick / 1000;
-      emit(splashState.clone()..count=_tick.toInt());
+      int _tick = tick ~/ 1000;
       if (_tick == 0) {
         next(context);
       }
+      else
+        emit(splashState.clone()..count=_tick);
     });
     _timerUtil.startCountDown();
   }
@@ -75,6 +84,8 @@ class SplashCubit extends Cubit<StateBase> with BlocBase{
     // TODO: implement close
     if(_timerUtil!=null)
       _timerUtil.cancel();
+    if(timer!=null)
+      timer.cancel();
     return super.close();
   }
 

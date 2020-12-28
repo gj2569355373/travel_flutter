@@ -125,6 +125,7 @@ class SplashPage extends StatelessWidget {
   }
 
   void initBannerData(BuildContext context, SplashState state) {
+    if(state.bannerList.length==0)
     for (int i = 0, length = state.guideList.length; i < length; i++) {
       if (i == length - 1) {
         state.bannerList.add(new Stack(
