@@ -54,7 +54,7 @@ class VerificationCode<T extends Cubit<StateBase>> extends StatelessWidget{
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(29),topRight: Radius.circular(29)),
           ),
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: 19),
           onPressed: onTap,
           color:kPrimaryColor,
           textColor: click?Colors.white:Colors.white70,

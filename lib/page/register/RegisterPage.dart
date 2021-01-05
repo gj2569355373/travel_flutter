@@ -83,7 +83,9 @@ class RegisterWidget extends StatelessWidget {
             ),
           ),
           Container(
-            height: size.height * 0.8,
+//            height: size.height * 0.8,
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.only(top: 30+statusBarHeight),
 //        color: Colors.grey,
             child: SingleChildScrollView(
               child:

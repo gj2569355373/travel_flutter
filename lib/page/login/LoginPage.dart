@@ -23,6 +23,4 @@ class LoginPage extends StatelessWidget {
   Widget _childB(){
      return Body();
   }
-
-
 }

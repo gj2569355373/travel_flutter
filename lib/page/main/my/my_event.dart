@@ -4,6 +4,8 @@ part of 'my_bloc.dart';
 abstract class MyEvent {}
 
 class MyHeadEvent extends BaseEvent{
+  final BuildContext context;
+  MyHeadEvent(this.context);
 }
 class GotoEvent extends BaseEvent{
   final String path;

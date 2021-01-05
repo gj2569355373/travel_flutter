@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       if (state is ApplicationInitial)
         return MaterialApp(
           theme: ThemeData.light().copyWith(
+              platform: TargetPlatform.android,
               primaryColor: state.themeColor,
               accentColor: state.themeColor,
               buttonColor: state.themeColor,
@@ -42,11 +44,14 @@ class MyApp extends StatelessWidget {
               ))) //标题样式
               ),
           home: SplashPage(),
+          locale: state.locale,
           localizationsDelegates: [
             state.localeOverrideDelegate,
             const TranslationsDelegate(),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+//            DefaultCupertinoLocalizations.delegate,
           ],
           supportedLocales: localeUtil.supportedLocales(),
           routes: <String, WidgetBuilder>{

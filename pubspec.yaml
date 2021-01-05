@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   rxdart: ^0.24.1
   flutter_bloc: ^6.1.1 #状态管理框架
+  # Provider 官方推荐的状态管理
+  provider: ^4.3.2+3
   equatable: ^1.2.3 #增强组件相等性判断
   # Dart 常用工具类库 https://github.com/Sky24n/common_utils
   common_utils: ^1.2.1
@@ -51,6 +53,8 @@ dependencies:
   url_launcher: ^5.7.10
   # fromJson自动生成
   json_annotation: ^3.0.0
+  # Flutter的图像选择器插件  https://pub.flutter-io.cn/packages/image_picker#image-picker-plugin-for-flutter
+  image_picker: ^0.6.7+17
   # svg
   flutter_svg: ^0.19.1
   flutter_localizations:
@@ -82,8 +86,8 @@ flutter:
     - assets/img/3.0x/start2.jpg
     - assets/img/2.0x/start3.jpg
     - assets/img/3.0x/start3.jpg
-     # assets-generator-begin
-      # assets/img/*
+      # assets-generator-begin
+    # assets/img/*
     - assets/img/main_top.png
     - assets/img/signup_top.png
     - assets/img/login_bottom.png
@@ -96,7 +100,7 @@ flutter:
     - assets/img/signup.svg
     - assets/img/login_wechat.png
     - assets/img/splash_bg.png
-      # assets-generator-end
+    # assets-generator-end
 
   # To add assets to your application, add an assets section, like this:
 

@@ -62,6 +62,8 @@ class TextStyles {
     color: Colors.black87,
   );
   static TextStyle hintStyle = TextStyle(fontSize: 14);
+
+  static TextStyle rowLableNameStyle= TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black87,);
 }
 
 class Decorations {

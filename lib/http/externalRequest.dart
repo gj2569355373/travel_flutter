@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:travel_flutter/models/panelBin.dart';
 import 'package:travel_flutter/models/typeItem.dart';
+import 'package:travel_flutter/page/Information/information_cubit.dart';
 
 import 'api.dart';
 import 'http_model.dart';
@@ -204,6 +205,14 @@ class ExternalRequest {
     }
     return ls;
   }
+
+  Future<MyInformationModel> getMyInformationModel() async{
+    BaseRespTravel<List> baseResp =
+    await RequestAll().requestTravel<List>(Method.get, WanAndroid.banner);
+    if (baseResp.data != null && baseResp.data.length > 0) {
+      return new MyInformationModel.fromJson({"userName":"敬爷","birthday":'1993-10-07',"sex":"1","imageUrl":"http://img3.duitang.com/uploads/item/201509/25/20150925144216_iuEXt.thumb.700_0.jpeg",});
+    }
+    return new Future.error(baseResp.msg);  }
 
   static Future<bool> setToken(TokenModel tokenModels) {
     _tokenModel = tokenModels;

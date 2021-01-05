@@ -10,6 +10,7 @@ import 'package:travel_flutter/page/base/stateBase.dart';
 import 'package:travel_flutter/page/forgetPassword/forgetPassword_cubit.dart';
 import 'package:travel_flutter/page/register/register_cubit.dart';
 import 'package:travel_flutter/res/colors.dart';
+import 'package:travel_flutter/utils/locale/locale_util.dart';
 import 'package:travel_flutter/utils/locale/translations.dart';
 
 part 'application_state.dart';
@@ -37,7 +38,7 @@ class ApplicationCubit extends Cubit<StateBase> {
     emit(new ApplicationInitial(
         themeColor: themeColorMap[colorKey],
         localeOverrideDelegate:
-            new SpecificLocalizationDelegate(new Locale(lang))));
+            new SpecificLocalizationDelegate(new Locale(lang)))..locale=new Locale(lang,LocaleUtil.getCountryCode(lang)));
   }
 
   //触发主题更新

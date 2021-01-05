@@ -101,7 +101,7 @@ class MyWidget extends StatelessWidget {
                 .add(new GotoEvent("ProductDetailPage",context));
           else if (i == 3) {
             BlocProvider.of<MyBloc>(context)
-                .add(new GotoEvent("TravellersPage",context));
+                .add(new GotoEvent("changePasswordPage",context));
           }
         },
       ),
@@ -120,7 +120,7 @@ class MyWidget extends StatelessWidget {
                 highlightColor: Colors.black12,
                 splashColor: Colors.blueGrey,
                 onTap: () {
-                  BlocProvider.of<MyBloc>(context).add(new MyHeadEvent());
+                  BlocProvider.of<MyBloc>(context).add(new MyHeadEvent(context));
                 },
                 child: Container(
                     padding: const EdgeInsets.all(20.0),

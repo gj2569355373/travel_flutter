@@ -7,7 +7,7 @@ import 'package:travel_flutter/page/base/stateBase.dart';
 
 part 'forgetPassword_state.dart';
 
-class ForgetPasswordCubit extends CountDownWith with BlocBase {
+class ForgetPasswordCubit extends CountDownWith {
   ForgetPasswordCubit() : super(ForgetPasswordInitial());
   String userName;
   String password;

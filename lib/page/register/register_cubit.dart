@@ -5,7 +5,7 @@ import 'package:travel_flutter/page/application/application_cubit.dart';
 import 'package:travel_flutter/page/base/blocBase.dart';
 import 'package:travel_flutter/page/base/stateBase.dart';
 part 'register_state.dart';
-class RegisterCubit extends CountDownWith with BlocBase {
+class RegisterCubit extends CountDownWith {
   RegisterCubit() : super(RegisterInitial());
   String userName;
   String password;

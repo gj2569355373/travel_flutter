@@ -10,6 +10,7 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+//    final double statusBarHeight = MediaQuery.of(context).padding.top;
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
@@ -33,7 +34,10 @@ class Background extends StatelessWidget {
               width: size.width * 0.4,
             ),
           ),
-          child,
+          Container(
+//            alignment: Alignment.topCenter,
+//            padding: EdgeInsets.only(top: 30+statusBarHeight),
+            child: child,)
         ],
       ),
     );

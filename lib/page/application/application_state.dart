@@ -4,6 +4,7 @@ part of 'application_cubit.dart';
 class ApplicationInitial extends StateBase{
   Color themeColor;
   String registerId;
+  Locale locale;
   SpecificLocalizationDelegate localeOverrideDelegate;
 
   ApplicationInitial(

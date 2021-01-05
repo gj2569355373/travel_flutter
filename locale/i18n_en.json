@@ -23,5 +23,7 @@
   "loginUserText": "User name",
   "loginPassWordHint": "Input password",
   "loginPassWordText": "Password",
-  "verificationCode": "Verification Code"
+  "verificationCode": "Verification Code",
+  "information":"Personal Data",
+  "nickName": "NickName"
 }

@@ -23,5 +23,7 @@
   "loginUserText": "用户名",
   "loginPassWordHint": "输入密码",
   "loginPassWordText": "密码",
-  "verificationCode": "获取验证码"
+  "verificationCode": "获取验证码",
+  "information":"个人信息",
+  "nickName": "昵称"
 }

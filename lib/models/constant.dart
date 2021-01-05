@@ -30,5 +30,6 @@ class Constant {
   static const String loginPassWordHint = 'loginPassWordHint';
   static const String loginPassWordText = 'loginPassWordText';
   static const String verificationCode = 'verificationCode';
+  static const String information = 'information';
 
 }

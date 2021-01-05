@@ -16,7 +16,12 @@ abstract class BlocBase {
   void onRefresh();
   void onLoading();
 }
-abstract class CountDownWith extends Cubit<StateBase>{
+
+abstract class BaseCubit extends Cubit<StateBase> with BlocBase{
+  BaseCubit(StateBase state) : super(state);
+}
+
+abstract class CountDownWith extends Cubit<StateBase> with BlocBase{
   CountDownWith(StateBase state) : super(state);
 
   void updateCountDown(int count);

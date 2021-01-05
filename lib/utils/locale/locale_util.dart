@@ -4,10 +4,10 @@ typedef void LocaleChangeCallback(Locale locale);
 class LocaleUtil {
 
   // Support languages list
-  final List<String> supportedLanguages = ['en','zh', 'ja'];
+  final List<String> supportedLanguages = ['en','zh'];
 
   // Support Locales list
-  Iterable<Locale> supportedLocales() => supportedLanguages.map<Locale>((lang) => new Locale(lang, ''));
+  Iterable<Locale> supportedLocales() => supportedLanguages.map<Locale>((lang) => new Locale(lang, getCountryCode(lang)));
 
   // Callback for manual locale changed
   LocaleChangeCallback onLocaleChanged;
@@ -22,7 +22,17 @@ class LocaleUtil {
   }
 
   LocaleUtil._internal();
-
+   static getCountryCode(String lang){
+    switch(lang){
+      case "en":
+        return "US";
+      case "zh":
+        return "CN";
+      case "ja":
+        return "";
+    }
+    return "";
+  }
   /// 获取当前系统语言
   String getLanguageCode() {
     if(languageCode == null) {
